@@ -42,9 +42,12 @@ class Game:
         if self.snake.snake[0].y >= 600 - 32 or self.snake.snake[0].y <= 0:
             self.game_over()
         
+        print(f'{len(self.snake.snake)}')
         for i in range(2, len(self.snake.snake)):
+            print(f'{i} {len(self.snake.snake)}')
             if pygame.Rect.colliderect(self.snake.snake[0], self.snake.snake[i]):
                 self.game_over()
+                break
 
         if pygame.Rect.colliderect(self.snake.snake[0], self.fruit.rect):
             del self.fruit
@@ -85,6 +88,10 @@ class Game:
 
             if event.type == pygame.QUIT:
                 self.playing = False
-            
+
             self.snake.snake_events(event)
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    self.snake.add_part()
 
